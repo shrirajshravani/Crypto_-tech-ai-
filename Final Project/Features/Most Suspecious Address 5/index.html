@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transaction Analysis</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script> <!-- Include PapaParse library -->
+<style>
+    
+    table {
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            width: 100%;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: #C5C6C7;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            color: rgb(255, 254, 254);
+
+        }
+
+        th {
+            background-color: #616569;
+            border-bottom: 2px solid #ffffff;
+        }
+        td {
+            background-color: #9a9498;
+            border-bottom: 2px solid #ffffff;
+        }
+        h1 {
+            text-align: center;
+        }
+</style>
+</head>
+<body>
+<h1 id>Transaction Analysis</h1>
+<input type="file" id="csv-file" accept=".csv">
+<button onclick="handleFile()">Analyze</button>
+
+<div id="result">
+    <!-- Results will be displayed here -->
+    <h2>Senders with more than 10 transactions:</h2>
+    <table id="senders-table">
+        <tr>
+            <th>Sender</th>
+            <th>Number of Transactions</th>
+        </tr>
+    </table>
+    <h2>Recipients with more than 10 transactions:</h2>
+    <table id="recipients-table">
+        <tr>
+            <th>Recipient</th>
+            <th>Number of Transactions</th>
+        </tr>
+    </table>
+</div>
+
+<script src="script.js"></script>
+<button id="backButton" onclick="goBack()">Back</button>
+    <style>
+       
+        #backButton {
+        position: absolute;
+        top: 10px; /* Adjust as needed */
+        left: 10px; /* Adjust as needed */
+        align-items: center;
+        background-color: #8A8583;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0 15px 30px -5px;
+        box-sizing: border-box;
+        color: #ffffff;
+        display: flex;
+        font-family: Phantomsans, sans-serif;
+        font-size: 20px;
+        justify-content: center;
+        line-height: 1em;
+        max-width: 100%;
+        min-width: 148px;
+        height: 50px;
+        padding: 3px;
+        text-decoration: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    #backButton:hover {
+        box-shadow: rgba(0, 0, 0, 0.5) 0 15px 30px -5px;
+    }
+    body {
+        background-color: #C5C6C7;
+    }
+    </style>
+    <script>
+        // JavaScript for the back button functionality
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    
+</body>
+</html>

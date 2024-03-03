@@ -1,0 +1,275 @@
+index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction History</title>
+    <style>
+        body {
+            background-color: #C5C6C7;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #786f80;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #0d0c0c;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #1b1a1a;
+        }
+        
+        .input {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 25%;
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #e8e8eb;
+  color: #0d0c22;
+  
+  transition: 0.3s ease;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 20px;
+            background-color: #F7EFD2;
+            left:480;
+            top:145;
+            
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            
+            
+            box-shadow: rgba(0, 0, 0, 0.3) 0 15px 30px -5px;
+            
+            position: absolute;
+        
+        align-items: center;
+        
+        border: 0;
+        border-radius: 8px;
+        
+        box-sizing: border-box;
+        color: #080808;
+        display: flex;
+        font-family: Phantomsans, sans-serif;
+        justify-content: center;
+        line-height: 1em;
+        max-width: 100%;
+        min-width: 148px;
+        height: 50px;
+        text-decoration: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        cursor: pointer;
+            
+        }
+        button:hover {
+            box-shadow: rgba(0, 0, 0, 0.5) 0 15px 30px -5px;
+        }
+        .input:focus,
+        input:hover {
+            outline: none;
+            border-color: #EED7A1;
+            background-color: #e8e8eb;
+            box-shadow: #EED7A1;
+                }
+        .icon {
+            position: absolute;
+            left: 1rem;
+            fill: #9e9ea7;
+            width: 1rem;
+            height: 1rem;
+                }
+       
+
+        #result {
+            border-radius: 8px;
+            padding: 20px;
+            background: #C5C6C7;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            width: 100%;
+            border: 2px solid #C5C6C7;
+            border-radius: 8px;
+            background: #C5C6C7;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            color: white;
+
+        }
+
+        th {
+            background-color: #616569;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        td {
+            background-color: #9a9498;
+            border-bottom: 2px solid #ffffff;
+}
+
+        
+        .icon {
+  position: absolute;
+  left: 1rem;
+  fill: #9e9ea7;
+  width: 1rem;
+  height: 1rem;
+}
+        
+
+        
+    </style>
+    <style>
+        /* Your existing CSS styles */
+    
+        #result table th,
+        #result table td {
+            color: white;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Transaction History In Details</h1>
+    <label for="address">Enter ETH Address:</label>
+    <div class="input">
+        <input type="text" id="address" placeholder="Address..." />
+        <span></span>
+    </div>
+    <button onclick="fetchTransactionHistory()">Submit</button>
+    <div id="result"></div>
+
+    <script>
+        async function get_eth_transaction_history(address) {
+            const api_key = '1KQ2ETIZF1M4864CKFY8IU539CIH1SXZ28';
+            const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&apikey=${api_key}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.result;
+        }
+
+        async function get_btc_transaction_history(address) {
+            const url = `https://blockchain.info/rawaddr/${address}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.txs;
+        }
+
+        function weiToEther(wei){
+            return wei / 1e18
+        }
+
+        async function fetchTransactionHistory() {
+            const address = document.getElementById('address').value.trim();
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
+            try {
+                if (address.startsWith('0x') && address.length === 42) {
+                    const eth_transactions = await get_eth_transaction_history(address);
+                    if (eth_transactions.length > 0) {
+                        const table = document.createElement('table');
+                        table.innerHTML = `
+                            <tr>
+                                <th>Block Number</th>
+                                <th>Timestamp</th>
+                                <th>Value</th>
+                                <th>From</th>
+                                <th>To</th>
+                            </tr>
+                        `;
+                        eth_transactions.forEach(tx => {
+                            const row = table.insertRow();
+                            row.innerHTML = `
+                                <td>${tx.blockNumber}</td>
+                                <td>${new Date(tx.timeStamp * 1000)}</td>
+                                <td>${weiToEther(tx.value)} ETH</td>
+                                <td>${tx.from}</td>
+                                <td>${tx.to}</td>
+                            `;
+                        });
+                        resultDiv.appendChild(table);
+                    } else {
+                        resultDiv.textContent = "No transaction history found for the provided ETH address.";
+                    }
+                } else if ((address.startsWith('1') || address.startsWith('3') || address.startsWith('bc1')) && [26, 34, 42].includes(address.length)) {
+                    const btc_transactions = await get_btc_transaction_history(address);
+                    if (btc_transactions.length > 0) {
+                        resultDiv.textContent = "Bitcoin address functionality not implemented in this example.";
+                    } else {
+                        resultDiv.textContent = "No transaction history found for the provided BTC address.";
+                    }
+                } else {
+                    resultDiv.textContent = "Invalid address format or unsupported cryptocurrency.";
+                }
+            } catch (error) {
+                resultDiv.textContent = "Error fetching transaction history: " + error.message;
+                console.error(error);
+            }
+        }
+    </script>
+    <button id="backButton" onclick="goBack()">Back</button>
+    <style>
+        #backButton {
+        position: absolute;
+        top: 10px; /* Adjust as needed */
+        left: 10px; /* Adjust as needed */
+        align-items: center;
+        background-color: #8A8583;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0 15px 30px -5px;
+        box-sizing: border-box;
+        color: #ffffff;
+        display: flex;
+        font-family: Phantomsans, sans-serif;
+        font-size: 20px;
+        justify-content: center;
+        line-height: 1em;
+        max-width: 100%;
+        min-width: 148px;
+        height: 50px;
+        padding: 3px;
+        text-decoration: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    #backButton:hover {
+        box-shadow: rgba(0, 0, 0, 0.5) 0 15px 30px -5px;
+    }
+    
+    </style>
+    <script>
+        // JavaScript for the back button functionality
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    
+    
+
+</body>
+</html>

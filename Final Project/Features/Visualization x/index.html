@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Transaction Visualizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+        }
+        .container {
+            text-align: center;
+            color: white;
+
+        }
+        .input-field {
+            margin-bottom: 10px;
+        }
+        #output {
+            width: 1000px;
+            height: 600px;
+            border: 2px solid #e1c9c9;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ethereum Transaction Visualizer</h1>
+        <div class="input-field">
+            <label for="address">Ethereum Address:</label>
+            <input type="text" id="address"placeholder="Address" required>
+        </div>
+        <button onclick="submitAddress()">Submit</button>
+        <div id="output"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <script src="script.js"></script>
+    <button id="backButton" onclick="goBack()">Back</button>
+    <style>
+        #input
+.input {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 25%;
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #e8e8eb;
+  color: #0d0c22;
+  
+  transition: 0.3s ease;
+
+        }
+
+.input:focus,
+ input:hover {
+   outline: none;
+            border-color: #EED7A1;
+  background-color: #e8e8eb;
+            box-shadow: #EED7A1;
+    
+        }
+        
+       
+        #backButton {
+        position: absolute;
+        top: 10px; /* Adjust as needed */
+        left: 10px; /* Adjust as needed */
+        align-items: center;
+        background-color: #7e7774;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0 15px 30px -5px;
+        box-sizing: border-box;
+        color: #ffffff;
+        display: flex;
+        font-family: Phantomsans, sans-serif;
+        font-size: 20px;
+        justify-content: center;
+        line-height: 1em;
+        max-width: 100%;
+        min-width: 148px;
+        height: 50px;
+        padding: 3px;
+        text-decoration: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    #backButton:hover {
+        box-shadow: rgba(0, 0, 0, 0.5) 0 15px 30px -5px;
+    }
+    button {
+    padding: 20px; /* Increase the padding as needed */
+    font-size: 24px; /* Increase the font size as needed */
+    background-color: #F7EFD2;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 15px 30px -5px;
+    position: absolute;
+    align-items: center;
+    border: 0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #080808;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 148px;
+    height: 50px;
+    text-decoration: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    left: 1000px; 
+    top: 55px;
+}
+
+    
+    </style>
+    <script>
+        // JavaScript for the back button functionality
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

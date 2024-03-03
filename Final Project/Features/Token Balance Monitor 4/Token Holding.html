@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Token Balances</title>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            width: 100%;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: #ffffff;
+            
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            color: rgb(252, 248, 248);
+
+        }
+
+        th {
+            background-color: #616569;
+            border-bottom: 2px solid #9a9498;
+        }
+
+        td {
+            background-color: #9a9498;
+            border-bottom: 2px solid #9a9498;
+        }
+        body {
+            background-color: #C5C6C7;
+        }
+    </style>
+</head>
+<body>
+    <h1>Token Balances</h1>
+    <label for="address">Enter Ethereum address:</label>
+    <input type="text" id="address" placeholder=Address">
+    <button onclick="getBalances()" id="button">Get Balances</button>
+    <div id="tableContainer"></div>
+
+    <script>
+        async function getBalances() {
+            const address = document.getElementById('address').value.trim();
+            const tokenContracts = {
+                DAI: { contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F', decimal: 18 },
+                USDC: { contractAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', decimal: 6 },
+                USDT: { contractAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7', decimal: 6 },
+                BNB: { contractAddress: '0xB8c77482e45F1F44dE1745F52C74426C631bDD52', decimal: 18 },
+                WBTC: { contractAddress: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599', decimal: 8 },
+                // Add more token contract addresses here
+            };
+            const apiKey = 'WVBTRYAD6MAKZB47G578SVXYP4Q7MIR5H3';
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = '';
+
+            const table = document.createElement('table');
+            const thead = document.createElement('thead');
+            const tbody = document.createElement('tbody');
+
+            const headerRow = document.createElement('tr');
+            const tokenHeader = document.createElement('th');
+            tokenHeader.textContent = 'Token';
+            const balanceHeader = document.createElement('th');
+            balanceHeader.textContent = 'Balance';
+            headerRow.appendChild(tokenHeader);
+            headerRow.appendChild(balanceHeader);
+            thead.appendChild(headerRow);
+
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            tableContainer.appendChild(table);
+
+            let totalBalance = 0;
+
+            for (const [token, { contractAddress, decimal }] of Object.entries(tokenContracts)) {
+                try {
+                    const response = await fetch(`https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${contractAddress}&address=${address}&tag=latest&apikey=${apiKey}`);
+                    const data = await response.json();
+                    const balanceWei = data.result;
+                    const balance = balanceWei / 10 ** decimal; // Convert to actual value
+                    totalBalance += balance;
+                    const row = `<tr><td>${token}</td><td>${balance}</td></tr>`;
+                    tbody.insertAdjacentHTML('beforeend', row);
+                } catch (error) {
+                    console.error(`Error fetching balance for token ${token}: ${error.message}`);
+                    const row = `<tr><td>${token}</td><td>Error</td></tr>`;
+                    tbody.insertAdjacentHTML('beforeend', row);
+                }
+            }
+
+            // Add total row
+            const totalRow = `<tr><td><strong>Total</strong></td><td>${totalBalance}</td></tr>`;
+            tbody.insertAdjacentHTML('beforeend', totalRow);
+        }
+    </script>
+    <button id="backButton" onclick="goBack()">Back</button>
+    <style>
+        button {
+    padding: 20px; /* Increase the padding as needed */
+    font-size: 20px; /* Increase the font size as needed */
+    background-color: #F7EFD2;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 15px 30px -5px;
+    position: absolute;
+    align-items: center;
+    border: 0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #080808;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 148px;
+    height: 50px;
+    text-decoration: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    top: 80px;
+    left:600px;
+}
+        h1 {
+            text-align: center;
+        }
+       
+        #backButton {
+        position: absolute;
+        top: 10px; /* Adjust as needed */
+        left: 10px; /* Adjust as needed */
+        align-items: center;
+        background-color: #8A8583;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0 15px 30px -5px;
+        box-sizing: border-box;
+        color: #ffffff;
+        display: flex;
+        font-family: Phantomsans, sans-serif;
+        font-size: 20px;
+        justify-content: center;
+        line-height: 1em;
+        max-width: 100%;
+        min-width: 148px;
+        height: 50px;
+        padding: 3px;
+        text-decoration: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    #backButton:hover {
+        box-shadow: rgba(0, 0, 0, 0.5) 0 15px 30px -5px;
+    }
+    input {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 25%;
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #e8e8eb;
+  color: #0d0c22;
+  
+  transition: 0.3s ease;
+
+        }
+
+.input:focus,
+ input:hover {
+   outline: none;
+            border-color: #EED7A1;
+  background-color: #e8e8eb;
+            box-shadow: #EED7A1;
+}
+
+    </style>
+    <script>
+        // JavaScript for the back button functionality
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

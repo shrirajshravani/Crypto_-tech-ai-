@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Means Clustering Visualization</title>
+    <!-- Import Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <!-- Create input for file upload -->
+    
+    <div id="input">
+        <input type="file" id="file-input" accept=".csv">
+
+    </div>
+    <!-- Create a div for the scatter plot -->
+    <div id="scatter-plot"></div>
+
+    <!-- Import JS file -->
+    <script src="script.js"></script>
+</body>
+
+
+    
+    <style>
+    
+    /* Style for the body content */
+    body {
+        background-color: #C5C6C7;
+        display: flex; /* Use flexbox for centering */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 100vh; /* Take full height of the viewport */
+        margin: 0; /* Remove default margin */
+    }
+    
+    #scatter-plot {
+        width: 80%; /* Adjust width as needed */
+        height: 80%; /* Adjust height as needed */
+    }
+    
+    input {
+        margin-top: 20px; /* Adjust as needed */
+        padding: 20px; /* Add padding for spacing */
+        font-family: Arial, sans-serif; /* Specify font family */
+    }
+
+   
+        
+        
+        
+        
+
+/* Style for the body content */
+body {
+    background-color: #C5C6C7;
+}
+input {
+    margin-top: 100px; /* Add margin-top to push content below the header */
+    padding: 20px; /* Add padding for spacing */
+    font-family: Arial, sans-serif; /* Specify font family */
+
+}
+
+
+</style>
+<button id="backButton" onclick="goBack()">Back</button>
+    <style>
+       
+        #backButton {
+        position: absolute;
+        top: 10px; /* Adjust as needed */
+        left: 10px; /* Adjust as needed */
+        align-items: center;
+        background-color: #8A8583;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0 15px 30px -5px;
+        box-sizing: border-box;
+        color: #ffffff;
+        display: flex;
+        font-family: Phantomsans, sans-serif;
+        font-size: 20px;
+        justify-content: center;
+        line-height: 1em;
+        max-width: 100%;
+        min-width: 148px;
+        height: 50px;
+        padding: 3px;
+        text-decoration: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    #backButton:hover {
+        box-shadow: rgba(0, 0, 0, 0.5) 0 15px 30px -5px;
+    }
+    </style>
+    <script>
+        // JavaScript for the back button functionality
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</html>

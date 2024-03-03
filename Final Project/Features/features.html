@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <div class="content">
+    <h2>Cryptocurrency Investigation Tools</h2>
+    </div>
+    <style>
+    .content {
+    background-color: #475C6C;
+    color: #fff; /* Text color */
+    text-align: center;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Stylish font */
+    }
+.logo-title {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+}
+
+.content h2 {
+    font-size: 2em;
+    
+    /* Add additional styles for a crypto theme if needed */
+}
+
+    
+         .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 0px;
+            padding: 10px;
+            margin-left: -50px;
+            
+            
+        }
+        /* Your CSS styles here */
+        .square-box {
+        width: 375px;
+        height: 281px;
+        border: 2px solid rgb(250, 250, 250);
+        overflow: hidden; /* Ensures the image doesn't overflow the box */
+        border-radius: 10px; 
+        margin-top: 90px;
+        margin-left: 90px;
+    }
+    .re-box {
+        width: 375px;
+        height: 112px;
+        border: 2px solid rgb(255, 255, 255);
+        overflow: hidden; /* Ensures the image doesn't overflow the box */
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        background-color: #EED7A1;
+        margin-top: 0px;
+        margin-left: 90px;
+        color:#475C6C;
+        
+        
+    }
+
+    .square-box img {
+        width: 100%; /* Make the image fill the entire width of the box */
+        height: auto; /* Maintain aspect ratio */
+    }
+    
+
+
+
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo-title img {
+    margin-right: 20px;
+    height: 90px; /* Adjust the height as needed */
+}
+
+   
+
+    /* Glow effect */
+    .glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2); /* Adjust the color and opacity as needed */
+        z-index: -1; /* Ensure the glow is behind the image */
+    }
+    
+
+h1:hover {
+      text-align: center;
+      margin-top: 2px;
+      color: rgb(155, 198, 198);
+}
+    h2{
+      text-align: center;
+    }
+    @keyframes zoom {
+    from {
+        transform: scale(1); /* Initial size */
+    }
+    to {
+        transform: scale(1.2); /* Zoomed size */
+    }
+}
+
+.re-box {
+    animation: zoom 0.2s ease; /* Apply the zoom animation */
+}
+.re-box {
+    transform: scale(1); /* Initial size */
+    transition: transform 0.2s ease,box-shadow 0.5s ease;; /* Define transition for smoother effect */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.re-box:hover {
+    transform: scale(1.04); /* Zoomed size on hover */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px; 
+    background-color: #EED7A1;
+    
+}
+.square-box{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-bottom: none;
+}
+
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        
+
+
+
+
+        <!-- Button 1 -->
+<div class="button-1" id="button-1">
+    <div class="shadow"></div>
+    <div class="glow"></div>
+    <div class="square-box">
+        <img src="Fraud Detection 1.jpg" alt="Image">
+    </div>
+    <div class="re-box" id="re-box">
+        <h2>Fraud Detection</h2>
+    </div>
+</div>
+
+<script>
+    // Add click event listener to the button
+    document.getElementById("button-1").addEventListener("click", function() {
+        // Open the link in the re-box
+        window.open("http://127.0.0.1:5000/", "_self");
+    });
+</script>
+
+
+
+
+
+        <!-- Button 2 -->
+<div class="button-2" id="button-2">
+    <div class="shadow"></div>
+    <div class="glow"></div>
+    <div class="square-box">
+        <img src="Address Details 2.jpg" alt="Image">
+    </div>
+    <div class="re-box" id="re-box">
+        <h2>Address Details</h2>
+    </div>
+</div>
+
+<script>
+    // Add click event listener to the button
+    document.getElementById("button-2").addEventListener("click", function() {
+        // Open the link in the re-box
+        window.open("file:///C:/Users/Sairam%20Gudeli/Desktop/Final%20Project/Features/Address%20Details%202/Transaction%20%20Address%20Details/index.html", "_self");
+    });
+</script>
+
+
+
+
+        <!-- Button 3 -->
+<div class="button-3" id="button-3">
+    <div class="shadow"></div>
+    <div class="glow"></div>
+    <div class="square-box">
+        <img src="Visualization 3.jpg" alt="Image">
+    </div>
+    <div class="re-box" id="re-box">
+        <h2>Visualization</h2>
+    </div>
+</div>
+
+<script>
+    // Add click event listener to the button
+    document.getElementById("button-3").addEventListener("click", function() {
+        // Open the link in the re-box
+        window.open("file:///C:/Users/Sairam%20Gudeli/Desktop/Final%20Project/Features/Visualization%203/index.html", "_self");
+    });
+</script>
+
+
+
+ <!-- Button 4 -->
+ <div class="button-4" id="button-4">
+    <div class="shadow"></div>
+    <div class="glow"></div>
+    <div class="square-box">
+        <img src="Token Balance Monitor 4.jpg" alt="Image">
+    </div>
+    <div class="re-box" id="re-box">
+        <h2>Token Balance Monitor</h2>
+    </div>
+</div>
+
+<script>
+    // Add click event listener to the button
+    document.getElementById("button-4").addEventListener("click", function() {
+        // Open the link in the re-box
+        window.open("file:///C:/Users/Sairam%20Gudeli/Desktop/Final%20Project/Features/Token%20Balance%20Monitor%204/Token%20Holding.html", "_self");
+    });
+</script>
+
+
+
+
+      
+
+
+
+<!-- Button 5 -->
+<div class="button-5" id="button-5">
+    <div class="shadow"></div>
+    <div class="glow"></div>
+    <div class="square-box">
+        <img src="Most Suspecious Address 5.jpg" alt="Image">
+    </div>
+    <div class="re-box" id="re-box">
+        <h2>Most Suspecious Address</h2>
+    </div>
+</div>
+
+<script>
+    // Add click event listener to the button
+    document.getElementById("button-5").addEventListener("click", function() {
+        // Open the link in the re-box
+        window.open("file:///C:/Users/Sairam%20Gudeli/Desktop/Final%20Project/Features/Most%20Suspecious%20Address%205/index.html", "_self");
+    });
+</script>
+
+
+
+        <!-- Button 6 -->
+        <div class="button-6" id="button-6">
+            <div class="shadow"></div>
+            <div class="glow"></div>
+            <div class="square-box">
+                <img src="Address Clustering 6.jpg" alt="Image">
+            </div>
+            <div class="re-box">
+                <h2>Address Clustering</h2>
+            </div>
+        </div>
+        <script>
+            // Add click event listener to the button
+            document.getElementById("button-6").addEventListener("click", function() {
+                // Open the link in the re-box
+                window.open("file:///C:/Users/Sairam%20Gudeli/Desktop/Final%20Project/Features/Address%20Clustering%206/index.html", "_self");
+            });
+        </script>
+    </div>
+</body>
+</html>

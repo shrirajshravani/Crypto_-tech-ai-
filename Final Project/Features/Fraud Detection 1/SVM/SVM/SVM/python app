@@ -1,0 +1,61 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import PowerTransformer
+from imblearn.over_sampling import SMOTE
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+import pickle
+import matplotlib.pyplot as plt
+df = pd.read_csv("C:/Users/admin/Downloads/transaction_dataset.csv", index_col=0)
+df = df.iloc[:, 2:]
+# Data cleaning
+df.drop(df.select_dtypes('O').columns, axis=1, inplace=True)  
+df.fillna(df.median(), inplace=True)  
+df.drop(df.columns[df.var() == 0], axis=1, inplace=True)  
+drop = ['total transactions (including tnx to create contract', 'total ether sent contracts', 'max val sent to contract', ' ERC20 avg val rec',
+        ' ERC20 avg val rec',' ERC20 max val rec', ' ERC20 min val rec', ' ERC20 uniq rec contract addr', 'max val sent', ' ERC20 avg val sent',
+        ' ERC20 min val sent', ' ERC20 max val sent', ' Total ERC20 tnxs', 'avg value sent to contract', 'Unique Sent To Addresses',
+        'Unique Received From Addresses', 'total ether received', ' ERC20 uniq sent token name', 'min value received', 'min val sent', ' ERC20 uniq rec addr' ]
+df.drop(drop, axis=1, inplace=True)
+print(df['FLAG'].value_counts())
+plt.figure(figsize=[15, 10])
+labels = ['Non-fraud', 'Fraud']
+colors = ['#f9ae35', '#f64e38']
+plt.pie(x=df['FLAG'].value_counts(), autopct='%.2f%%', explode=[0.02]*2, labels=labels, pctdistance=0.5, textprops={'fontsize': 14}, colors=colors)
+plt.title('Target distribution')
+plt.show()
+y = df.iloc[:, 0]
+X = df.iloc[:, 1:]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
+norm = PowerTransformer()
+norm_train_f = norm.fit_transform(X_train)
+oversample = SMOTE()
+x_tr_resample, y_tr_resample = oversample.fit_resample(norm_train_f, y_train)
+svm_clf = SVC(random_state=42)
+svm_clf.fit(x_tr_resample, y_tr_resample)
+norm_test_f = norm.transform(X_test)
+preds_svm = svm_clf.predict(norm_test_f)
+print(classification_report(y_test, preds_svm))
+print(confusion_matrix(y_test, preds_svm))
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, preds_svm)
+print("Accuracy:", accuracy)
+
+# Save the model 
+pickle_out = open('SVM_FRAUD.pickle', 'wb')
+pickle.dump(svm_clf, pickle_out)
+pickle_out.close()
+
+# Load the saved model
+pickle_in = open('SVM_FRAUD.pickle', 'rb')
+svm_clf_loaded = pickle.load(pickle_in)
+pickle_in.close()
+# Normalize 
+norm_X = norm.transform(X)
+# SMOTE
+X_resample, y_resample = oversample.fit_resample(norm_X, y)
+predictions = svm_clf_loaded.predict(norm_X)
+fraud_transactions = df[predictions == 1]
+print("\nFraud Transactions Detected:")
+print(fraud_transactions)
